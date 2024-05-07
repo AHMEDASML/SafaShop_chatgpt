@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Safa Shop</string>
+    <string name="app_name_capitalized">SAFA SHOP</string>
+    <string name="share_title">Share title</string>
+    <string name="share_cover">Share cover</string>
+    <string name="share_media">Share media</string>
+    <string name="share_link">Share link</string>
+    <string name="no_product">No product</string>
+    <string name="no_url">No link</string>
+    <string name="downloading_file">Downloading file ...</string>
+</resources>

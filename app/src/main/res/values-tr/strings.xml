@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_title">İsmi paylaş</string>
+    <string name="share_cover">Şuanki resmi paylaş</string>
+    <string name="share_media">Tüm resimleri paylaş</string>
+    <string name="share_link">Bağlantıyı paylaş</string>
+    <string name="app_name_capitalized">SAFA MAĞAZASI</string>
+    <string name="app_name">Safa Mağazası</string>
+    <string name="no_product">Ürün yok</string>
+    <string name="no_url">Bağlantı yok</string>
+    <string name="downloading_file">Dosya yükleniyor ...</string>
+</resources>

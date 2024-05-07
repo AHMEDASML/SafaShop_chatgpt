@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name_capitalized">متجر صفا</string>
+    <string name="share_title">شارك اسم المنتج</string>
+    <string name="share_cover">شارك الصورة الحالية</string>
+    <string name="share_media">شارك جميع صور المنتج</string>
+    <string name="share_link">شارك رابط المنتج</string>
+    <string name="app_name">متجر صفا</string>
+    <string name="no_product">لا يوجد منتج</string>
+    <string name="no_url">لا يوجد رابط</string>
+    <string name="downloading_file">يتم تحميل الملف ...</string>
+</resources>

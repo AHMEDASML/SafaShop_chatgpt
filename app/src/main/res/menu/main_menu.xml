@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.safashopy.app.MainActivity">
+    <item android:id="@+id/share_title"
+        android:title="@string/share_title"
+        app:showAsAction="never"/>
+    <item android:id="@+id/share_cover"
+        android:title="@string/share_cover"
+        app:showAsAction="never"/>
+    <item android:id="@+id/share_media"
+        android:title="@string/share_media"
+        app:showAsAction="never"/>
+</menu>
