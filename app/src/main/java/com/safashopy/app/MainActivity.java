@@ -3,6 +3,10 @@ package com.safashopy.app;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DownloadManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -60,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                                     "var elements = Array.from(document.getElementsByClassName('tab-content-scroll')[0]?.children || []);" +
                                     "var contents = elements.map(function(element) { return element.innerHTML; });" +
                                     "return JSON.stringify({title: title, contents: contents}); " +
-                                    "}) ();",  new ValueCallback<String>() {
+                                    "}) ();", new ValueCallback<String>() {
                                 @Override
                                 public void onReceiveValue(String html) {
 
@@ -114,8 +118,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimeType, long contentLength) {
 
-
-
                 DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
                 request.setMimeType(mimeType);
                 String cookies = CookieManager.getInstance().getCookie(url);
@@ -127,11 +129,35 @@ public class MainActivity extends AppCompatActivity {
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                 request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, URLUtil.guessFileName(url, contentDisposition, mimeType));
                 DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+                long downloadId = dm.enqueue(request);
                 dm.enqueue(request);
                 Toast.makeText(getApplicationContext(), R.string.downloading_file, Toast.LENGTH_LONG).show();
 
+                BroadcastReceiver receiver = new BroadcastReceiver() {
+                    @Override
+                    public void onReceive(Context context, Intent intent) {
+                        long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+                        if (downloadId == id) {
+                            Uri downloadedFileUri = dm.getUriForDownloadedFile(downloadId);
+                            shareInvoice(downloadedFileUri); // Method to share via WhatsApp
+                        }
+                    }
+                };
+
+                registerReceiver(receiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+
+
             }
         });
+    }
+
+    private void shareInvoice(Uri fileUri) {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setPackage("com.whatsapp");
+        shareIntent.setType("application/pdf"); // Assuming the invoice is a PDF
+        shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        startActivity(Intent.createChooser(shareIntent, "Share Invoice via:"));
     }
 
     @Override
